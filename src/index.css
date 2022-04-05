@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Sinhala MN";
+  font-weight: 400;
+  src: url("src/Audrey/Audrey-Normal.otf");
+}
+
+body {
+  margin: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #2f80ed;
+  color: rgb(255, 255, 255);
+}
+
+.card {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 646px;
+}
+.adding-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+input[type="text-list"]::-webkit-input-placeholder {
+  color: #2f80ed;
+}
+
+input[type="text-list"]:-ms-input-placeholder {
+  color: #2f80ed;
+}
+
+input[type="text-list"]::-ms-input-placeholder {
+  color: #2f80ed;
+}
+
+input[type="text-list"]::placeholder {
+  color: #2f80ed;
+}
+
+label {
+  cursor: default;
+  vertical-align: middle;
+  padding: 10px 0;
+  color: #000;
+  font-weight: normal;
+  line-height: 30px;
+}
+label:before {
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  width: 17px;
+  height: 17px;
+  content: "";
+  color: #000;
+  display: inline-block;
+  font: 26px/11px Arial;
+  font-weight: bolder;
+  text-indent: 0;
+  background: #fff;
+  border: 2px solid #e3e3e3;
+  border-image: initial;
+  font-size: 15px;
+  color: #2f80ed;
+  border: 3px solid #2f80ed;
+  border-radius: 4px;
+}
+input:checked + label:before {
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+h1 {
+  display: flex;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-family: "Sinhala MN";
+  justify-content: space-around;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 59px;
+  /* identical to box height */
+
+  letter-spacing: 0.1em;
+}
+
+.text-todo {
+  left: 0;
+  top: 0;
+  text-align: left;
+  width: 604px;
+  height: 44px;
+  background: #ffffff;
+  outline: none;
+  font-family: "Roboto";
+  font-size: 15px;
+  border: 0;
+}
+input[type="text"] {
+  color: black;
+  background-color: white;
+  background-image: url(img/Subtract.svg);
+  background-position: 20px 15px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  padding-right: 50px;
+  text-indent: 23px;
+}
+.text-search {
+  margin-top: 20px;
+  left: 0;
+  top: 0;
+  width: 604px;
+  height: 46px;
+  background: #ffffff;
+  outline: none;
+  font-family: "Roboto";
+  font-size: 15px;
+  border: 0;
+}
+input[type="search"] {
+  padding-left: 40px;
+  background-color: white;
+  background-position: 20px 15px;
+  color: black;
+  background-repeat: no-repeat;
+  background-image: url(img/Search.svg);
+  text-indent: 23px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 27px 0 60px;
+  padding-bottom: 4px;
+  align-items: center;
+  height: 46px;
+  width: 604px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-top: 1px solid #e0e0e0;
+}
+.butts {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+  width: 172px;
+}
+.button {
+  cursor: pointer;
+  margin-right: 25px;
+  padding: 5px;
+  float: right;
+  height: 25px;
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #2f80ed;
+  font-family: "Roboto";
+  font-style: normal;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 14px;
+}
+.wrapper {
+  display: flex;
+  align-content: space-around;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 0px;
+  width: 604px;
+  height: 44px;
+  color: #2f80ed;
+  background: #ffffff;
+  border-top: 1px solid #e0e0e0;
+}
+.text-list {
+  cursor: default;
+  margin-left: 15px;
+  left: 0;
+  top: 0;
+  width: 400px;
+  outline: none;
+  color: #2f80ed;
+  text-align: left;
+  font-size: 15px;
+  border: #e0e0e0;
+  background: #ffffff;
+  font-family: "Roboto";
+}
+input[type="text-list"] {
+  background-color: white;
+}
+.button-trash-image {
+  width: 20px;
+  height: 20px;
+  background-image: url("/src/img/Trash.svg");
+}
+.button-editing-image {
+  width: 20px;
+  height: 20px;
+  background-image: url("/src/img/Pencil.svg");
+}
