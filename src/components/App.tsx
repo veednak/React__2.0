@@ -1,27 +1,25 @@
-import { useState, useEffect, useRef } from "react";
 import React from "react";
+import { useState, useEffect, useRef } from "react";
 import { ItoDo } from "../components/types/data";
 import { TodoList } from "../components/TodoList";
-import { title } from "process";
-import ReactDOM from "react-dom";
+import Plus from "../img/plus.svg";
+import { ItemPlus } from "./ItemPlus";
 
 const App: React.FC = () => {
   const [value, setValue] = useState("");
   const [search, searchValue] = useState("");
+  let [checkPlus, setCheckPlus] = useState("");
   let [todos, setTodos] = useState<ItoDo[]>([]);
-  let [condition, setCondition] = useState("All");
+  let [selectedGroup, setSelectedGroup] = useState("All");
 
   const toDoViewing = () => {
-    setCondition((condition = "Todo"));
-    console.log(condition);
+    return setSelectedGroup("Todo");
   };
   const completedTasks = () => {
-    setCondition((condition = "Complete"));
-    console.log(condition);
+    return setSelectedGroup("Complete");
   };
   const fullTasksList = () => {
-    setCondition((condition = "All"));
-    console.log(condition);
+    return setSelectedGroup("All");
   };
   const addTodo = () => {
     if (value) {
@@ -37,11 +35,12 @@ const App: React.FC = () => {
 
       setValue("");
     }
-    console.log(todos);
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "Enter") addTodo();
+    if (e.key === "Enter") {
+      addTodo();
+    }
   };
 
   const selectAll: React.MouseEventHandler<HTMLLabelElement> = (e) => {
@@ -56,12 +55,10 @@ const App: React.FC = () => {
   };
 
   const removeTodo = (id: number): void => {
-    console.log("12");
-    setTodos(todos.filter((todo) => todo.id !== id));
+    return setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   const toggleTodo = (id: number, title: string): void => {
-    console.log("11");
     setTodos(
       todos.map((todo) => {
         if (todo.id !== id) return todo;
@@ -73,17 +70,6 @@ const App: React.FC = () => {
     );
   };
 
-  // const editTodo = (id: number): void => {
-  //   setTodos(
-  //     todos.map((todo) => {
-  //       if (todo.id !== id) return todo;
-  //       return {
-  //         ...todo,
-  //         check: !todo.check,
-  //       };
-  //     })
-  //   );
-  // };
   const inputText = (id: number, title: string) => {
     setTodos(
       todos.map((todo) => {
@@ -95,6 +81,13 @@ const App: React.FC = () => {
       })
     );
   };
+  const FocusInput: React.FocusEventHandler<HTMLInputElement> = () => {
+    return setCheckPlus((checkPlus = "1"));
+  };
+
+  const BlurInput: React.FocusEventHandler<HTMLInputElement> = () => {
+    return setCheckPlus((checkPlus = ""));
+  };
 
   return (
     <div className="items-center flex flex-col  mb-4 rounded-2xl p-5 w-full ">
@@ -104,16 +97,14 @@ const App: React.FC = () => {
           type="text"
           placeholder="Add your ToDO"
           value={value}
+          onFocus={FocusInput}
+          onBlur={BlurInput}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <div id="addTask" className="adding-button">
-          <img
-            className="button-plus-image"
-            src="../img/plus.svg"
-            onClick={addTodo}
-          />
-        </div>
+        <button id="addTask" className="adding-button" onClick={addTodo}>
+          <ItemPlus checkPlus={checkPlus} />
+        </button>
       </div>
       <input
         className="text-search"
@@ -126,7 +117,7 @@ const App: React.FC = () => {
       <div className="row">
         <div className="select-all">
           <label id="selectAll" className="label-text" onClick={selectAll}>
-            {" "}
+            {""}
           </label>
         </div>
         <div className="butts">
@@ -142,7 +133,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <TodoList
-        condition={condition}
+        selectedGroup={selectedGroup}
         search={search}
         setItems={setTodos}
         items={todos}

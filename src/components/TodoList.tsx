@@ -1,10 +1,9 @@
 import { TodoItem } from "../components/TodoItem";
-
 import { ItoDo } from "../components/types/data";
 import React, { useState } from "react";
 
 interface ITodoListProps {
-  condition: string;
+  selectedGroup: string;
   search: string;
   setItems: React.Dispatch<React.SetStateAction<ItoDo[]>>;
   items: ItoDo[];
@@ -14,7 +13,15 @@ interface ITodoListProps {
   removeTodo(id: number): void;
 }
 
-const TodoList: React.FC<ITodoListProps> = (props) => {
+const TodoList: React.FC<ITodoListProps> = ({
+  selectedGroup,
+  search,
+  setItems,
+  items,
+  inputText,
+  toggleTodo,
+  removeTodo,
+}) => {
   let [currentTodo, setCurrentTodo] = useState<ItoDo>();
 
   function dragStartHandler(e: any, todo: ItoDo) {
@@ -27,44 +34,33 @@ const TodoList: React.FC<ITodoListProps> = (props) => {
   }
   function dropHandler(e: any, todo: ItoDo) {
     e.preventDefault();
-    console.log("drop", todo);
     setItems(
-      items.map((c) => {
-        if (c.id === todo.id) {
-          return { ...c, id: currentTodo!.id };
+      items.map((dropTodo) => {
+        if (dropTodo.id === todo.id) {
+          return { ...dropTodo, id: currentTodo!.id };
         }
-        if (c.id === currentTodo!.id) {
-          return { ...c, id: todo.id };
+        if (dropTodo.id === currentTodo!.id) {
+          return { ...dropTodo, id: todo.id };
         }
-        return c;
+        return dropTodo;
       })
     );
-    console.log(condition);
   }
   const todoSort = (a: ItoDo, b: ItoDo) => {
     if (a.id > b.id) return 1;
     else return -1;
   };
 
-  const {
-    condition,
-    search,
-    setItems,
-    items,
-    inputText,
-    toggleTodo,
-    removeTodo,
-  } = props;
   return (
     <div className="list-todo">
       {items
         .sort(todoSort)
         .filter((item) => item.title.includes(search))
         .filter((todo) => {
-          if (condition === "All") {
+          if (selectedGroup === "All") {
             return true;
           }
-          if (condition === "Todo") {
+          if (selectedGroup === "Todo") {
             return !todo.complete;
           }
           return todo.complete;
