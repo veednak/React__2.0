@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ItoDo } from "../components/types/data";
-import { useState, useEffect, useRef } from "react";
 import Trash from "../img/Trash.svg";
 import Drag from "../img/DragVertical.svg";
 import Pencil from "../img/Pencil.svg";
@@ -8,8 +7,6 @@ import Pencil from "../img/Pencil.svg";
 export interface ItoDoItem extends ItoDo {
   items: ItoDo[];
   setItems: React.Dispatch<React.SetStateAction<ItoDo[]>>;
-  //editTodo: (id: number) => void;
-
   removeTodo: (id: number) => void;
   inputText: (id: number, title: string) => void;
   toggleTodo: (id: number, title: string) => void;
@@ -19,11 +16,9 @@ const TodoItem: React.FC<ItoDoItem> = ({
   setItems,
   items,
   id,
-  inputText,
   title,
   check,
   complete,
-  //editTodo,
   removeTodo,
   toggleTodo,
 }) => {
@@ -39,6 +34,7 @@ const TodoItem: React.FC<ItoDoItem> = ({
       })
     );
   };
+
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter") {
       setItems(

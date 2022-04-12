@@ -20,11 +20,11 @@ body {
 }
 
 .card {
-  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  margin: auto;
   width: 646px;
 }
 
@@ -35,6 +35,7 @@ body {
   justify-content: center;
   position: absolute;
   margin-right: 10px;
+  bottom: 8px;
   right: 20px;
   width: 24px;
   height: 24px;
@@ -256,6 +257,7 @@ input[type="text-list"] {
 .complete {
   text-decoration: line-through;
 }
+
 .button-drag-image {
   cursor: move;
 }

@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import { ItoDo } from "../components/types/data";
 import { TodoList } from "../components/TodoList";
 import Plus from "../img/plus.svg";
@@ -15,12 +15,20 @@ const App: React.FC = () => {
   const toDoViewing = () => {
     return setSelectedGroup("Todo");
   };
+
   const completedTasks = () => {
     return setSelectedGroup("Complete");
   };
+
   const fullTasksList = () => {
     return setSelectedGroup("All");
   };
+
+  useEffect(() => {
+    const row: any = localStorage.getItem("todos");
+    setTodos(JSON.parse(row));
+  }, []);
+
   const addTodo = () => {
     if (value) {
       setTodos([
@@ -32,7 +40,6 @@ const App: React.FC = () => {
           check: true,
         },
       ]);
-
       setValue("");
     }
   };
@@ -81,39 +88,57 @@ const App: React.FC = () => {
       })
     );
   };
+
   const FocusInput: React.FocusEventHandler<HTMLInputElement> = () => {
-    return setCheckPlus((checkPlus = "1"));
+    return setCheckPlus("1");
   };
 
   const BlurInput: React.FocusEventHandler<HTMLInputElement> = () => {
-    return setCheckPlus((checkPlus = ""));
+    return setCheckPlus("");
   };
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const onSubmit = (data: any) => {};
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <div className="items-center flex flex-col  mb-4 rounded-2xl p-5 w-full ">
       <div className="card">
-        <input
-          className="text-todo"
-          type="text"
-          placeholder="Add your ToDO"
-          value={value}
-          onFocus={FocusInput}
-          onBlur={BlurInput}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            {...register("newTodo")}
+            id="td"
+            className="text-todo"
+            type="text"
+            placeholder="Add your ToDO"
+            value={value}
+            onFocus={FocusInput}
+            onBlur={BlurInput}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </form>
         <button id="addTask" className="adding-button" onClick={addTodo}>
           <ItemPlus checkPlus={checkPlus} />
         </button>
       </div>
-      <input
-        className="text-search"
-        type="search"
-        placeholder="Search.."
-        value={search}
-        onChange={(e) => searchValue(e.target.value)}
-        //onInput={handleKeyDownSearch}
-      />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          {...register("searchTodo")}
+          className="text-search"
+          type="search"
+          placeholder="Search.."
+          value={search}
+          onChange={(e) => searchValue(e.target.value)}
+        />
+      </form>
       <div className="row">
         <div className="select-all">
           <label id="selectAll" className="label-text" onClick={selectAll}>
@@ -138,7 +163,6 @@ const App: React.FC = () => {
         setItems={setTodos}
         items={todos}
         inputText={inputText}
-        //editTodo={editTodo}
         removeTodo={removeTodo}
         toggleTodo={toggleTodo}
       />
