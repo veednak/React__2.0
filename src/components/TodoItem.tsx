@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ItoDo } from "../components/types/data";
+import { useForm } from "react-hook-form";
+import { ItoDo } from "../types/data";
 import Trash from "../img/Trash.svg";
 import Drag from "../img/DragVertical.svg";
 import Pencil from "../img/Pencil.svg";
@@ -9,7 +10,6 @@ export interface ItoDoItem extends ItoDo {
   setItems: React.Dispatch<React.SetStateAction<ItoDo[]>>;
   removeTodo: (id: number) => void;
   inputText: (id: number, title: string) => void;
-  toggleTodo: (id: number, title: string) => void;
 }
 
 const TodoItem: React.FC<ItoDoItem> = ({
@@ -20,17 +20,19 @@ const TodoItem: React.FC<ItoDoItem> = ({
   check,
   complete,
   removeTodo,
-  toggleTodo,
 }) => {
   const [value, setValue] = useState("");
   const editTodo = (id: number) => {
     setItems(
       items.map((todo) => {
         if (todo.id !== id) return todo;
-        return {
-          ...todo,
-          check: !todo.check,
-        };
+        else if (todo.complete != true) {
+          return {
+            ...todo,
+            check: !todo.check,
+          };
+        }
+        return todo;
       })
     );
   };
@@ -49,35 +51,80 @@ const TodoItem: React.FC<ItoDoItem> = ({
       );
     }
   };
+  let a;
+  const toggleTodo = (id: number, title: string): void => {
+    setItems(
+      items.map((todo) => {
+        if (todo.id !== id) return todo;
+
+        return {
+          ...todo,
+          complete: !todo.complete,
+        };
+      })
+    );
+  };
+  const BlurInput: React.FocusEventHandler<HTMLInputElement> = () => {
+    setItems(
+      items.map((todo) => {
+        if (todo.id !== id) return todo;
+        else if (value != "") {
+          return {
+            ...todo,
+            check: true,
+            title: value,
+          };
+        }
+        return {
+          ...todo,
+          check: true,
+        };
+      })
+    );
+  };
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const onSubmit = (data: any) => {};
 
   return (
     <div className="wrapper">
       <img className="button-drag-image" src={Drag} />
-
-      <label className={complete ? "checked" : ""}>
-        <input
-          className={"check-box"}
-          type="checkbox"
-          checked={complete}
-          onChange={() => toggleTodo(id, title)}
-        />
-        <input
-          className={"text-list " + (complete ? "complete" : "")}
-          type="text-list"
-          placeholder={title}
-          checked={complete}
-          value={value}
-          readOnly={check}
-          onKeyDown={handleKeyDown}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </label>
+      <form>
+        <label className={complete ? "checked" : ""}>
+          <input
+            className={"check-box"}
+            type="checkbox"
+            checked={complete}
+            onChange={() => toggleTodo(id, title)}
+          />
+          <input
+            className={
+              "text-list " +
+              (complete ? "complete" : "") +
+              (check ? "" : "check")
+            }
+            type="text-list"
+            onBlur={BlurInput}
+            placeholder={title}
+            checked={complete}
+            value={value}
+            readOnly={check}
+            onKeyDown={handleKeyDown}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </label>
+      </form>
       <div>
         <button className="mr-5" onClick={() => editTodo(id)}>
-          <img className="button-editing-image" src={Pencil} />
+          <img className="button-editing-image" alt="Edit" src={Pencil} />
         </button>
         <button onClick={() => removeTodo(id)}>
-          <img className="button-trash-image" src={Trash} />
+          <img className="button-trash-image" alt="Delete" src={Trash} />
         </button>
       </div>
     </div>

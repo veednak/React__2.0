@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { ItoDo } from "../components/types/data";
-import { TodoList } from "../components/TodoList";
-import Plus from "../img/plus.svg";
-import { ItemPlus } from "./ItemPlus";
+import { ItoDo } from "./types/data";
+import { TodoList } from "./components/TodoList";
+import { ItemPlus } from "./components/ItemPlus";
 
 const App: React.FC = () => {
   const [value, setValue] = useState("");
@@ -12,20 +11,12 @@ const App: React.FC = () => {
   let [todos, setTodos] = useState<ItoDo[]>([]);
   let [selectedGroup, setSelectedGroup] = useState("All");
 
-  const toDoViewing = () => {
-    return setSelectedGroup("Todo");
-  };
-
-  const completedTasks = () => {
-    return setSelectedGroup("Complete");
-  };
-
-  const fullTasksList = () => {
-    return setSelectedGroup("All");
+  const completedTasks = (type: string) => {
+    return setSelectedGroup(type);
   };
 
   useEffect(() => {
-    const row: any = localStorage.getItem("todos");
+    const row: string = localStorage.getItem("todos")!;
     setTodos(JSON.parse(row));
   }, []);
 
@@ -89,12 +80,8 @@ const App: React.FC = () => {
     );
   };
 
-  const FocusInput: React.FocusEventHandler<HTMLInputElement> = () => {
-    return setCheckPlus("1");
-  };
-
-  const BlurInput: React.FocusEventHandler<HTMLInputElement> = () => {
-    return setCheckPlus("");
+  const FocusInput = (type: string) => {
+    return setCheckPlus(type);
   };
 
   const {
@@ -104,23 +91,29 @@ const App: React.FC = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {};
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   return (
     <div className="items-center flex flex-col  mb-4 rounded-2xl p-5 w-full ">
+      <h1>TODO LIST</h1>
+
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register("newTodo")}
-            id="td"
             className="text-todo"
             type="text"
             placeholder="Add your ToDO"
             value={value}
-            onFocus={FocusInput}
-            onBlur={BlurInput}
+            onFocus={() => {
+              FocusInput("1");
+            }}
+            onBlur={() => {
+              FocusInput("");
+            }}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
           />
@@ -146,13 +139,28 @@ const App: React.FC = () => {
           </label>
         </div>
         <div className="butts">
-          <button className="button" onClick={toDoViewing}>
+          <button
+            className="button"
+            onClick={() => {
+              completedTasks("Todo");
+            }}
+          >
             TODO
           </button>
-          <button className="button" onClick={completedTasks}>
+          <button
+            className="button"
+            onClick={() => {
+              completedTasks("Done");
+            }}
+          >
             DONE
           </button>
-          <button className="button" onClick={fullTasksList}>
+          <button
+            className="button"
+            onClick={() => {
+              completedTasks("All");
+            }}
+          >
             ALL
           </button>
         </div>
@@ -164,7 +172,6 @@ const App: React.FC = () => {
         items={todos}
         inputText={inputText}
         removeTodo={removeTodo}
-        toggleTodo={toggleTodo}
       />
     </div>
   );

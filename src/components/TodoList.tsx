@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TodoItem } from "../components/TodoItem";
-import { ItoDo } from "../components/types/data";
+import { ItoDo } from "../types/data";
 
 interface ITodoListProps {
   selectedGroup: string;
@@ -8,7 +8,6 @@ interface ITodoListProps {
   setItems: React.Dispatch<React.SetStateAction<ItoDo[]>>;
   items: ItoDo[];
   inputText: (id: number, title: string) => void;
-  toggleTodo(id: number, title: string): void;
   removeTodo(id: number): void;
 }
 
@@ -18,7 +17,6 @@ const TodoList: React.FC<ITodoListProps> = ({
   setItems,
   items,
   inputText,
-  toggleTodo,
   removeTodo,
 }) => {
   let [currentTodo, setCurrentTodo] = useState<ItoDo>();
@@ -52,21 +50,21 @@ const TodoList: React.FC<ITodoListProps> = ({
     if (a.id > b.id) return 1;
     else return -1;
   };
-
+  const todoFilter = (todo: ItoDo) => {
+    if (selectedGroup === "All") {
+      return true;
+    }
+    if (selectedGroup === "Todo") {
+      return !todo.complete;
+    }
+    return todo.complete;
+  };
   return (
     <div className="list-todo">
       {items
         .sort(todoSort)
         .filter((item) => item.title.includes(search))
-        .filter((todo) => {
-          if (selectedGroup === "All") {
-            return true;
-          }
-          if (selectedGroup === "Todo") {
-            return !todo.complete;
-          }
-          return todo.complete;
-        })
+        .filter(todoFilter)
         .map((todo) => (
           <div
             draggable={true}
@@ -79,9 +77,7 @@ const TodoList: React.FC<ITodoListProps> = ({
             <TodoItem
               setItems={setItems}
               items={items}
-              key={todo.id}
               inputText={inputText}
-              toggleTodo={toggleTodo}
               removeTodo={removeTodo}
               {...todo}
             />

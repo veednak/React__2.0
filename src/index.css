@@ -87,7 +87,6 @@ label:before {
   background: #fff;
   border: 2px solid #e3e3e3;
   border-image: initial;
-  font-size: 15px;
   color: #2f80ed;
   border: 3px solid #2f80ed;
   border-radius: 4px;
@@ -96,7 +95,7 @@ label:before {
 .checked::after {
   cursor: pointer;
   position: absolute;
-  top: 10px;
+  top: 7px;
   left: 4px;
   width: 15px;
   height: 15px;
@@ -110,17 +109,17 @@ code {
 
 h1 {
   display: flex;
-  margin-block-start: 0.67em;
-  margin-block-end: 0.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
   font-family: "Sinhala MN";
   justify-content: space-around;
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
   line-height: 59px;
-  letter-spacing: 0.1em;
+  letter-spacing: 5px;
 }
 
 .text-todo {
@@ -182,6 +181,7 @@ input[type="search"] {
   align-items: center;
   height: 46px;
   width: 604px;
+  font-size: 15px;
   box-sizing: border-box;
   background: #ffffff;
   border-top: 1px solid #e0e0e0;
@@ -198,7 +198,6 @@ input[type="search"] {
   cursor: pointer;
   margin-right: 25px;
   padding: 5px;
-  float: right;
   height: 25px;
   background-color: #ffffff;
   border-color: #ffffff;
@@ -216,7 +215,7 @@ input[type="search"] {
   align-content: space-around;
   justify-content: space-around;
   align-items: center;
-  margin-top: 0px;
+  margin-top: 0;
   width: 604px;
   height: 44px;
   color: #2f80ed;
@@ -226,9 +225,9 @@ input[type="search"] {
 
 .text-list {
   cursor: default;
-  margin-left: 15px;
   left: 0;
   top: 0;
+  margin-left: 15px;
   width: 400px;
   outline: none;
   color: #2f80ed;
@@ -243,9 +242,6 @@ input[type="text-list"] {
   background-color: white;
 }
 
-.button-trash-image {
-}
-
 .button-editing-image {
   margin-bottom: 2px;
 }
@@ -256,6 +252,10 @@ input[type="text-list"] {
 
 .complete {
   text-decoration: line-through;
+}
+
+.check {
+  color: #000;
 }
 
 .button-drag-image {
