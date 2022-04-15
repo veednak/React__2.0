@@ -4,6 +4,8 @@ import { ItoDo } from "../types/data";
 import Trash from "../img/Trash.svg";
 import Drag from "../img/DragVertical.svg";
 import Pencil from "../img/Pencil.svg";
+import White from "../img/White.png";
+import Done from "../img/Done.svg";
 
 export interface ItoDoItem extends ItoDo {
   items: ItoDo[];
@@ -14,6 +16,7 @@ export interface ItoDoItem extends ItoDo {
 
 const TodoItem: React.FC<ItoDoItem> = ({
   setItems,
+  editing,
   items,
   id,
   title,
@@ -30,6 +33,7 @@ const TodoItem: React.FC<ItoDoItem> = ({
           return {
             ...todo,
             check: !todo.check,
+            editing: Done,
           };
         }
         return todo;
@@ -46,17 +50,23 @@ const TodoItem: React.FC<ItoDoItem> = ({
             ...todo,
             check: !todo.check,
             title: value,
+            editing: Pencil,
           };
         })
       );
     }
   };
-  let a;
+
   const toggleTodo = (id: number, title: string): void => {
     setItems(
       items.map((todo) => {
         if (todo.id !== id) return todo;
-
+        if (todo.complete == false) {
+          return { ...todo, editing: White, complete: !complete };
+        }
+        if (todo.complete == true) {
+          return { ...todo, editing: Pencil, complete: !complete };
+        }
         return {
           ...todo,
           complete: !todo.complete,
@@ -64,6 +74,7 @@ const TodoItem: React.FC<ItoDoItem> = ({
       })
     );
   };
+
   const BlurInput: React.FocusEventHandler<HTMLInputElement> = () => {
     setItems(
       items.map((todo) => {
@@ -78,6 +89,7 @@ const TodoItem: React.FC<ItoDoItem> = ({
         return {
           ...todo,
           check: true,
+          editing: Pencil,
         };
       })
     );
@@ -121,7 +133,7 @@ const TodoItem: React.FC<ItoDoItem> = ({
       </form>
       <div>
         <button className="mr-5" onClick={() => editTodo(id)}>
-          <img className="button-editing-image" alt="Edit" src={Pencil} />
+          <img className="button-editing-image" alt="Edit" src={editing} />
         </button>
         <button onClick={() => removeTodo(id)}>
           <img className="button-trash-image" alt="Delete" src={Trash} />
@@ -130,4 +142,5 @@ const TodoItem: React.FC<ItoDoItem> = ({
     </div>
   );
 };
+
 export { TodoItem };

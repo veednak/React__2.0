@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { ItoDo } from "./types/data";
 import { TodoList } from "./components/TodoList";
 import { ItemPlus } from "./components/ItemPlus";
+import Pencil from "./img/Pencil.svg";
 
 const App: React.FC = () => {
   const [value, setValue] = useState("");
@@ -29,6 +30,7 @@ const App: React.FC = () => {
           title: value,
           complete: false,
           check: true,
+          editing: Pencil,
         },
       ]);
       setValue("");

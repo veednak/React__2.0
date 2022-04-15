@@ -50,6 +50,7 @@ const TodoList: React.FC<ITodoListProps> = ({
     if (a.id > b.id) return 1;
     else return -1;
   };
+
   const todoFilter = (todo: ItoDo) => {
     if (selectedGroup === "All") {
       return true;
@@ -59,6 +60,7 @@ const TodoList: React.FC<ITodoListProps> = ({
     }
     return todo.complete;
   };
+
   return (
     <div className="list-todo">
       {items
@@ -86,4 +88,5 @@ const TodoList: React.FC<ITodoListProps> = ({
     </div>
   );
 };
+
 export { TodoList };
