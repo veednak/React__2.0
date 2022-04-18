@@ -5,7 +5,7 @@
 @font-face {
   font-family: "Sinhala MN";
   font-weight: 400;
-  src: url("font/Audrey/Audrey-Normal.otf");
+  src: url("assets/font/Audrey/Audrey-Normal.otf");
 }
 
 body {
@@ -20,25 +20,25 @@ body {
 }
 
 .card {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  margin: auto;
   width: 646px;
+  margin: auto;
 }
 
 .adding-button {
   cursor: pointer;
+  position: absolute;
+  bottom: 8px;
+  right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  margin-right: 10px;
-  bottom: 8px;
-  right: 20px;
   width: 24px;
   height: 24px;
+  margin-right: 10px;
 }
 
 input[type="checkbox"] {
@@ -62,32 +62,30 @@ input[type="text-list"]::placeholder {
 }
 
 label {
-  position: relative;
   cursor: default;
+  position: relative;
   vertical-align: middle;
   padding: 10px 0;
-  color: #000;
   font-weight: normal;
   line-height: 30px;
+  color: #000;
 }
 
 label:before {
   cursor: pointer;
   position: relative;
+  display: inline-block;
   vertical-align: middle;
   text-align: center;
   width: 17px;
   height: 17px;
-  content: "";
-  color: #000;
-  display: inline-block;
   font: 26px/11px Arial;
   font-weight: bolder;
-  text-indent: 0;
-  background: #fff;
-  border: 2px solid #e3e3e3;
-  border-image: initial;
   color: #2f80ed;
+  text-indent: 0;
+  content: "";
+  background: #fff;
+  border-image: initial;
   border: 3px solid #2f80ed;
   border-radius: 4px;
 }
@@ -99,7 +97,7 @@ label:before {
   left: 4px;
   width: 15px;
   height: 15px;
-  content: url("./img/Vector.svg");
+  content: url("./assets/img/Vector.svg");
 }
 
 code {
@@ -109,12 +107,12 @@ code {
 
 h1 {
   display: flex;
+  justify-content: space-around;
   margin-top: 25px;
   margin-bottom: 25px;
   margin-inline-start: 0;
   margin-inline-end: 0;
   font-family: "Sinhala MN";
-  justify-content: space-around;
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
@@ -128,34 +126,34 @@ h1 {
   text-align: left;
   width: 604px;
   height: 44px;
-  background: #ffffff;
-  outline: none;
   font-family: "Roboto";
   font-size: 15px;
+  outline: none;
+  background: #ffffff;
   border: 0;
 }
 
 input[type="text"] {
-  color: black;
-  background-color: white;
-  background-image: url(img/Subtract.svg);
-  background-position: 20px 15px;
-  background-repeat: no-repeat;
   padding-left: 40px;
   padding-right: 50px;
   text-indent: 23px;
+  color: black;
+  background-color: white;
+  background-image: url(./assets/img/Subtract.svg);
+  background-position: 20px 15px;
+  background-repeat: no-repeat;
 }
 
 .text-search {
-  margin-top: 20px;
   left: 0;
   top: 0;
   width: 604px;
   height: 46px;
-  background: #ffffff;
-  outline: none;
+  margin-top: 20px;
   font-family: "Roboto";
   font-size: 15px;
+  outline: none;
+  background: #ffffff;
   border: 0;
 }
 
@@ -165,22 +163,22 @@ input[type="text"] {
 
 input[type="search"] {
   padding-left: 40px;
+  text-indent: 23px;
+  color: black;
   background-color: white;
   background-position: 20px 15px;
-  color: black;
   background-repeat: no-repeat;
-  background-image: url(img/Search.svg);
-  text-indent: 23px;
+  background-image: url(./assets/img/Search.svg);
 }
 
 .row {
   display: flex;
   justify-content: space-between;
-  padding: 0 27px 0 60px;
-  padding-bottom: 4px;
   align-items: center;
   height: 46px;
   width: 604px;
+  padding: 0 27px 0 60px;
+  padding-bottom: 4px;
   font-size: 15px;
   box-sizing: border-box;
   background: #ffffff;
@@ -190,24 +188,24 @@ input[type="search"] {
 .butts {
   display: flex;
   justify-content: space-between;
-  margin-left: 20px;
   width: 172px;
+  margin-left: 20px;
 }
 
 .button {
   cursor: pointer;
+  height: 25px;
   margin-right: 25px;
   padding: 5px;
-  height: 25px;
-  background-color: #ffffff;
-  border-color: #ffffff;
-  color: #2f80ed;
   font-family: "Roboto";
   font-style: normal;
-  border: none;
   font-weight: 600;
   font-size: 14px;
   line-height: 14px;
+  color: #2f80ed;
+  border: none;
+  background-color: #ffffff;
+  border-color: #ffffff;
 }
 
 .wrapper {
@@ -215,9 +213,9 @@ input[type="search"] {
   align-content: space-around;
   justify-content: space-around;
   align-items: center;
-  margin-top: 0;
   width: 604px;
   height: 44px;
+  margin-top: 0;
   color: #2f80ed;
   background: #ffffff;
   border-top: 1px solid #e0e0e0;
@@ -227,15 +225,15 @@ input[type="search"] {
   cursor: default;
   left: 0;
   top: 0;
-  margin-left: 15px;
   width: 400px;
-  outline: none;
-  color: #2f80ed;
+  margin-left: 15px;
+  font-family: "Roboto";
   text-align: left;
   font-size: 15px;
+  outline: none;
+  color: #2f80ed;
   border: #e0e0e0;
   background: #ffffff;
-  font-family: "Roboto";
 }
 
 input[type="text-list"] {

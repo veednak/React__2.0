@@ -1,6 +1,6 @@
 import React from "react";
-import Plus from "../img/plus.svg";
-import White from "../img/White.png";
+import Plus from "../assets/img/plus.svg";
+import White from "../assets/img/White.png";
 
 interface Plus {
   checkPlus: string;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { ItoDo } from "../types/data";
-import Trash from "../img/Trash.svg";
-import Drag from "../img/DragVertical.svg";
-import Pencil from "../img/Pencil.svg";
-import White from "../img/White.png";
-import Done from "../img/Done.svg";
+import Trash from "../assets/img/Trash.svg";
+import Drag from "../assets/img/DragVertical.svg";
+import Pencil from "../assets/img/Pencil.svg";
+import White from "../assets/img/White.png";
+import Done from "../assets/img/Done.svg";
 
 export interface ItoDoItem extends ItoDo {
   items: ItoDo[];
